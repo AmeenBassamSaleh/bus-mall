@@ -1,0 +1,24 @@
+body{
+  width: 700px;
+  position: absolute;
+  right: 25%;
+}
+
+header{
+
+}
+
+img {
+  width: 250px;
+  height: 250px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.button{
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  right: 165px;
+  top: 300px;
+}
