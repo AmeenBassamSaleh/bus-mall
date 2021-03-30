@@ -33,7 +33,10 @@ function Img(anyImg) {
 
 
   Img.all.push(this);
+
 }
+
+
 Img.all = [];
 
 for (let i = 0; i < arrayImg.length; i++) {
@@ -45,7 +48,7 @@ for (let i = 0; i < arrayImg.length; i++) {
 function render() {
   let currentImages= []
   do{
-    leftIndex = randomNumber(0, arrayImg.length - 1);
+    leftIndex = randomNumber(0, arrayImg.length );
   }while(pastImages.includes(leftIndex));
 
   currentImages.push(leftIndex);
@@ -56,7 +59,7 @@ function render() {
   // console.log(leftIndex);
 
   do{
-    rightIndex = randomNumber(0, arrayImg.length - 1);
+    rightIndex = randomNumber(0, arrayImg.length);
   }while(pastImages.includes(rightIndex) || currentImages.includes(rightIndex));
   currentImages.push(rightIndex);
 
@@ -66,7 +69,7 @@ function render() {
   // console.log(rightIndex);
 
   do{
-    midIndex = randomNumber(0, arrayImg.length - 1);
+    midIndex = randomNumber(0, arrayImg.length);
   }while(pastImages.includes(midIndex) || currentImages.includes(midIndex));
 
   midImage.src = Img.all[midIndex].path;
@@ -83,7 +86,6 @@ leftImage.addEventListener('click', click);
 midImage.addEventListener('click', click);
 
 function click(event) {
-
 
   if (noc < 25) {
 
@@ -130,15 +132,15 @@ function click(event) {
     console.log('votes', votes);
     console.log('views', views);
 
+    settingItem ()
     document.getElementById('show-results').removeAttribute("disabled");
-  }
 
+  }
+  
   console.table(noc);
 }
 
 render();
-
-document.getElementById('show-results').addEventListener('click',showResults)
 
 function showResults() {
   let ctx = document.getElementById('myChart').getContext('2d');
@@ -169,4 +171,25 @@ function showResults() {
 }
 
 
+function  settingItem () {
+  let data = JSON.stringify(Img.all);
+  localStorage.setItem('votes', data);
+  console.log('votes', data)
+}
+// settingItem ()
 
+
+function getItem() {
+  let stringObj = localStorage.getItem('votes');
+  let normalObj = JSON.parse(stringObj);  // parse to make the obj as obj not just string, ang json to show the data in the opj result
+
+  if (normalObj !== null) {
+    Img.all = normalObj;
+  }
+  // click();
+}
+
+
+document.getElementById('show-results').addEventListener('click',showResults)
+
+getItem()
